@@ -1,256 +1,129 @@
-# Bharat Herald Business Analytics Project (RPC 17)
+# Bharat Herald DX Analytics Improvement
 
-## 📖 Project Overview
+![Bharat Herald DX Analytics](docs/github_banner.svg)
 
-This project provides comprehensive business analytics for **Bharat Herald**, a traditional print newspaper company exploring digital transformation opportunities. The analysis covers the period from 2019-2024 and examines print circulation trends, advertising revenue patterns, digital pilot performance, and city-wise market readiness.
+This repository is an improved version of a pre-existing Codebasics RPC 17 digital transformation analytics project.  
+The original English project files and datasets are preserved, while this version adds deeper SQL data cleaning, a Japanese business report, and a reproducible Python workflow.
 
-## 🎯 Business Context
+## Why I Improved It
 
-Bharat Herald is facing the challenges of declining print readership and the need to adapt to digital media consumption patterns. This analysis helps the organization understand:
+Traditional media companies often face the same problem: print revenue is weakening, but digital transformation cannot be decided only by enthusiasm.  
+This project rebuilds the original analysis from a consulting perspective:
 
-- Print circulation performance across different cities
-- Advertising revenue trends and category concentration
-- Digital transformation readiness by market
-- Performance of digital pilot initiatives
-- Strategic recommendations for future growth
+- Which cities should be prioritized for DX?
+- Where is print circulation dropping fastest?
+- Which advertising categories create revenue concentration risk?
+- Does digital readiness actually convert into pilot engagement?
+- How can SQL cleaning make the analysis more reliable?
 
-## 📊 Dataset Overview
+## My Added Value
 
-### **Fact Tables**
-- **`fact_print_sales`**: Monthly print performance metrics (copies printed, sold, circulated by city)
-- **`fact_ad_revenue`**: Quarterly advertising revenue by city and category
-- **`fact_digital_pilot`**: Digital transformation pilot program results (2021 initiative)
-- **`fact_city_readiness`**: Digital readiness metrics (literacy, smartphone, internet penetration)
+| Area | Improvement |
+| --- | --- |
+| SQL | Added deep cleaning logic with Japanese comments |
+| Data quality | Standardized dates, currencies, city names, states, and category keys |
+| KPIs | Added return rate, print efficiency, engagement rate, access cost, and DX priority score |
+| Python | Built a zero-dependency report generator using SQLite + HTML + SVG |
+| Report | Rebuilt the final analysis as a Japanese consulting-style HTML report |
+| GitHub presentation | Added a clear project identity, attribution, and reproducible execution steps |
 
-### **Dimension Tables**
-- **`dim_city`**: City lookup with tier classification (Tier 1: Delhi, Mumbai, Ahmedabad; Tier 2: Lucknow, Bhopal, Patna, Jaipur, Kanpur, Varanasi; Tier 3: Ranchi)
-- **`dim_ad_category`**: Standardized advertising category mapping
+## Repository Structure
 
-### **Data Coverage**
-- **Geographic Scope**: 10 major Indian cities across multiple states
-- **Time Period**: 2019-2024 (6 years of historical data)
-- **Digital Pilot Period**: 2021 (limited digital transformation experiment)
-- **Data Volume**: Multiple fact tables with thousands of monthly/quarterly records
-
-## 🗂️ Project Structure
-
-```
-code_basics_rpc17/
-├── 📁 Datasets/                          # Original raw data files
-│   ├── fact_ad_revenue.csv
-│   ├── fact_city_readiness.csv
-│   ├── fact_digital_pilot.csv
-│   └── metadata.txt
-├── 📁 New Datasets/                      # Cleaned UTF-8 encoded datasets
-│   ├── dim_ad_category_utf8.csv
-│   ├── dim_city_utf8.csv
-│   ├── fact_print_sales_utf8.csv
-│   └── ... (other cleaned datasets)
-├── 📁 primary_analysis_queries/          # Primary business analysis queries
-│   ├── query1.html - query8.html
-├── 📁 ad_hoc_query_results/             # Ad-hoc business request results
-│   ├── q1.html - q6.html (Q1-Q6 results)
-│   ├── q6_enhanced.html
-│   └── q1.csv
-├── 📁 primay_analysis_visualizations/    # Data visualizations (if any)
-├── 🔧 data_cleaning.sql                 # Data cleaning and standardization scripts
-├── 📋 query_validation.sql              # Data quality validation queries
-├── 🎯 ad-hoc-query-results.sql         # Business request queries (Q1-Q6)
-├── 📄 metadata.txt                      # Comprehensive data dictionary
-└── 📚 Supporting Documents/
-    ├── ad-hoc-requests.pdf
-    ├── Media_Problem Statement.pdf
-    ├── Primary_and_Secondary_Analysis.pdf
-    └── rpc_17.pdf/pptx
+```text
+.
+├── Datasets/                         # Original source datasets
+├── New Datasets/                     # Cleaned UTF-8 CSV files from the original project
+├── improved_sql_jp/
+│   └── 01_deep_data_cleaning.sql     # Japanese-commented SQL cleaning and analysis views
+├── scripts/
+│   ├── build_clean_db.py             # CSV -> SQLite -> cleaned tables/views
+│   └── generate_japanese_report.py   # Cleaned DB -> Japanese HTML report
+├── improved_outputs/
+│   └── bharat_herald_dx_report_jp.html
+├── old_sql_backup/                   # Original/previous SQL files kept for reference
+├── primary_analysis_queries/         # Original primary query outputs
+└── IMPROVEMENT_README_JP.md          # Japanese improvement notes
 ```
 
-## 🔍 Key Business Questions Analyzed
+## How To Reproduce
 
-### **Primary Analysis (8 Queries)**
-Based on the HTML results files, the primary analysis covers:
-1. **Yearly Print Performance Trends** - Total printed, sold, and circulated copies (2019-2024)
-2. **City-wise Performance Analysis** - Regional performance breakdown
-3. **Seasonal Patterns in Print Sales** - Monthly/quarterly circulation patterns
-4. **Advertising Category Performance** - Revenue by category and trends
-5. **Digital Readiness Assessment** - City-wise digital adoption metrics
-6. **Market Tier Analysis** - Performance by city tier (Tier 1, 2, 3)
-7. **Efficiency Metrics** - Print efficiency ratios across markets
-8. **Comparative Regional Performance** - Cross-city benchmarking
+Run from the project root:
 
-### **Ad-Hoc Business Requests (Q1-Q6)**
+```powershell
+python scripts/build_clean_db.py
+python scripts/generate_japanese_report.py
+```
 
-#### **Q1: Monthly Circulation Drop Analysis** 📉
-- **Objective**: Identify months where any city recorded the sharpest month-over-month circulation drops
-- **Key Findings**: 
-  - Varanasi experienced the largest circulation drop in January 2021 (59,807 copies)
-  - Varanasi also showed significant drops in November 2019 (55,649 copies) and October 2020 (49,252 copies)
-  - Jaipur had a notable drop in January 2020 (51,858 copies)
-- **Business Impact**: Identifies problematic periods requiring investigation
+Generated outputs:
 
-#### **Q2: Yearly Revenue Concentration** 💰
-- **Objective**: Find advertising categories contributing >50% of yearly revenue
-- **Business Impact**: Assess revenue concentration risk and identify diversification opportunities
-- **Strategic Value**: Prevent over-dependency on single advertising categories
+- `improved_outputs/bharat_herald_cleaned.sqlite`
+- `improved_outputs/bharat_herald_dx_report_jp.html`
 
-#### **Q3: 2024 Print Efficiency Leaderboard** 📊
-- **Objective**: Rank top 5 cities by print efficiency ratio (net circulation/copies printed)
-- **Business Impact**: Optimize printing operations, reduce waste, and improve profitability
-- **Operational Value**: Guide resource allocation and operational improvements
+The SQLite file is intentionally ignored by git because it can be regenerated.
 
-#### **Q4: Internet Readiness Growth (2021)** 🌐
-- **Objective**: Identify the city with highest internet penetration improvement from Q1→Q4 2021
-- **Strategic Value**: Target cities with improving digital infrastructure for expansion
-- **Investment Guide**: Prioritize markets showing digital growth potential
+## Cleaning Logic
 
-#### **Q5: Consistent Multi-Year Decline Analysis** ⚠️
-- **Objective**: Identify cities experiencing simultaneous decline in both print circulation AND advertising revenue (2019-2024)
-- **Critical Insight**: Markets requiring immediate strategic intervention or exit consideration
-- **Risk Assessment**: Early warning system for market viability
+The improved SQL workflow creates normalized tables and views:
 
-#### **Q6: 2021 Readiness vs Pilot Engagement Outlier** 🎯
-- **Objective**: Find cities with highest digital readiness but lowest digital pilot engagement
-- **Strategic Value**: Understand barriers to digital adoption despite favorable market conditions
-- **Product Development**: Identify gaps between market potential and actual product uptake
+- `clean_dim_city`
+- `clean_dim_ad_category`
+- `clean_fact_print_sales`
+- `clean_fact_ad_revenue`
+- `clean_fact_city_readiness`
+- `clean_fact_digital_pilot`
+- `v_data_quality_summary`
+- `v_print_monthly_momentum`
+- `v_ad_category_concentration`
+- `v_city_dx_priority`
+- `v_executive_kpi`
 
-## 🛠️ Technical Implementation
+Main cleaning points:
 
-### **Data Cleaning Process**
-- **Currency Standardization**: Normalized "IN RUPEES", "RUPEES" → "INR"
-- **Date Standardization**: Unified date formats across tables
-  - `fact_ad_revenue.quarter`: Standardized to "Qn-YYYY" format
-  - `fact_print_sales.month`: Standardized to "YYYY-MM" format
-- **Revenue Data Type Conversion**: VARCHAR → DECIMAL(15,2) for numerical analysis
-- **Added Date Indexing**: Performance optimization for time-range queries
+- Convert mixed quarter formats such as `2023-Q2`, `Q1-2019`, and `4th Qtr 2020`
+- Convert mixed currencies into INR using fixed analysis rates
+- Standardize city and state names
+- Detect print logic inconsistencies
+- Flag invalid revenue and readiness values
+- Create consulting-oriented DX priority scoring
 
-### **Data Quality Validation**
-- Foreign key consistency checks
-- Revenue and metric sanity checks
-- Row count and uniqueness validation
-- Date range and format verification
+## Key Findings From The Improved Analysis
 
-## 📈 Key Insights & Findings
+- 2024 net circulation: `29,597,065`
+- 2024 average print efficiency: `94.53%`
+- 2024 advertising revenue: `340,349,816 INR`
+- Average 2024 DX readiness score: `68.34`
+- Average pilot engagement rate: `54.58%`
+- Highest DX priority city: `Kanpur`
+- Largest monthly circulation drop: `Varanasi`, January 2021, `-59,807`
 
-### **Print Performance Insights**
-- **Significant Circulation Volatility**: Varanasi shows multiple periods of sharp circulation drops (2019-2024)
-- **Yearly Performance Trends**: 2019-2024 data reveals varying performance across years
-  - 2019: 39.4M printed, 37.1M sold, 39.6M circulated
-  - 2020: 36.7M printed, 34.6M sold, 37.6M circulated (COVID impact visible)
-  - Subsequent years show recovery and adjustment patterns
-- **Efficiency Optimization Opportunities**: Significant variations in print efficiency ratios across cities
+## Attribution
 
-### **Market Segmentation Analysis**
-- **Tier 1 Cities** (Delhi, Mumbai, Ahmedabad): Premium markets with higher digital readiness
-- **Tier 2 Cities** (Lucknow, Bhopal, Patna, Jaipur, Kanpur, Varanasi): Core markets with mixed performance
-- **Tier 3 Cities** (Ranchi): Emerging markets requiring different strategies
+This project is based on an existing Codebasics RPC 17 digital transformation analytics project and dataset.  
+The original project materials are kept in this repository for reference. My contribution is the improvement layer: SQL-based data cleaning, Japanese reporting, Python automation, and GitHub-ready documentation.
 
-### **Digital Transformation Readiness**
-- City-wise readiness scores enable targeted digital rollout strategy
-- 2021 pilot program provides baseline for digital adoption patterns
-- Infrastructure readiness vs. actual adoption gap analysis reveals implementation challenges
+If the original GitHub URL is available, add it here:
 
-### **Advertising Revenue Analysis**
-- Revenue concentration patterns reveal dependency risks
-- Category-wise performance trends guide advertising strategy
-- Quarterly patterns help with revenue forecasting and budget planning
+```text
+Original repository: <add original GitHub URL>
+```
 
-### **Critical Business Alerts**
-- Certain cities showing concurrent decline in both print circulation AND ad revenue
-- Market-specific challenges requiring immediate strategic intervention
-- Digital adoption barriers despite favorable market conditions
+## About Me
 
-## 🚀 Getting Started
+I am Seven, a Kobe University Economics master's student focusing on spatial economics, empirical analysis, and IT consulting career preparation in Japan.
 
-### **Prerequisites**
-- MySQL/MariaDB database server
-- SQL client (MySQL Workbench, phpMyAdmin, etc.)
-- CSV import capabilities
+This project reflects the way I want to work as an IT/DX consultant:
 
-### **Setup Instructions**
+- Start from messy data
+- Make assumptions explicit
+- Build a reproducible workflow
+- Translate analysis into business decisions
+- Communicate clearly in Japanese and English
 
-1. **Import Datasets**
-   ```sql
-   -- Import cleaned datasets from 'New Datasets/' folder
-   -- Use UTF-8 encoding for proper character handling
-   ```
+## Tech Stack
 
-2. **Run Data Cleaning**
-   ```sql
-   source data_cleaning.sql
-   ```
+- SQL / SQLite
+- Python standard library
+- HTML / CSS / SVG
+- Business analytics
+- Digital transformation strategy
 
-3. **Validate Data Quality**
-   ```sql
-   source query_validation.sql
-   ```
-
-4. **Execute Analysis**
-   ```sql
-   -- Run primary analysis queries
-   source ad-hoc-query-results.sql
-   ```
-
-### **Query Execution Order**
-1. 📥 Import datasets
-2. 🧹 Execute `data_cleaning.sql`
-3. ✅ Run `query_validation.sql` 
-4. 🔍 Execute business analysis queries
-5. 📊 Generate reports and visualizations
-
-## 💼 Business Value
-
-### **Strategic Decision Support**
-- **Market Prioritization**: Data-driven city ranking for resource allocation
-  - Tier-based strategy development (Tier 1, 2, 3 markets)
-  - ROI-focused investment decisions based on historical performance
-- **Digital Strategy**: Readiness-based digital transformation roadmap
-  - Phase digital rollout based on infrastructure readiness scores
-  - Learn from 2021 pilot program successes and failures
-- **Operational Efficiency**: Print optimization recommendations
-  - Reduce waste through efficiency ratio improvements
-  - Optimize circulation vs. printing ratios by market
-- **Revenue Diversification**: Advertising category expansion insights
-  - Reduce dependency on high-concentration revenue sources
-  - Identify growth opportunities in underperforming categories
-
-### **Performance Monitoring & KPIs**
-- **Monthly Circulation Tracking**: Early warning system for market decline
-- **Quarterly Revenue Analysis**: Advertising performance monitoring
-- **Digital Adoption Metrics**: Progress tracking for digital initiatives
-- **Cross-Market Benchmarking**: Identify best practices from top performers
-- **Efficiency Dashboards**: Operational performance monitoring
-
-### **Risk Management**
-- **Revenue Concentration Risk**: Identify over-dependency on specific ad categories
-- **Market Decline Detection**: Early identification of underperforming markets
-- **Digital Transition Measurement**: Success metrics for transformation initiatives
-- **Competitive Intelligence**: Market position analysis and strategic response
-
-### **Investment & Resource Allocation**
-- **Capital Allocation**: Data-driven budget distribution across markets
-- **Technology Investment**: Priority markets for digital infrastructure
-- **Human Resources**: Staffing optimization based on market potential
-- **Marketing Spend**: ROI-optimized marketing budget allocation
-
-## 📋 Data Dictionary
-
-Detailed metadata for all tables and columns is available in:
-- `metadata.txt` - Comprehensive data dictionary
-- `Datasets/metadata.txt` - Original dataset documentation
-
-## 📞 Project Context
-
-**Project Code**: RPC 17  
-**Period Analyzed**: 2019-2024  
-**Industry**: Media & Publishing  
-**Focus**: Digital Transformation Strategy  
-
-## 🔗 Related Files
-
-- **Problem Statement**: `Media_Problem Statement.pdf`
-- **Analysis Guide**: `Primary_and_Secondary_Analysis.pdf`
-- **Setup Instructions**: `How to Get Started (A Step-by-Step Guide).pdf`
-- **Project Presentation**: `rpc_17.pptx`
-
----
-
-*This project demonstrates comprehensive business analytics capabilities including data cleaning, validation, trend analysis, and strategic business intelligence for traditional media digital transformation.*

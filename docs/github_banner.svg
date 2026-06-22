@@ -1,0 +1,21 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="360" fill="#111827"/>
+  <rect x="48" y="44" width="1104" height="272" rx="18" fill="#F8FAFC"/>
+  <rect x="48" y="44" width="1104" height="272" rx="18" stroke="#CBD5E1" stroke-width="2"/>
+  <path d="M82 278C190 214 266 239 354 183C443 127 524 102 640 146C755 190 832 143 919 104C1006 65 1089 81 1120 95V316H82V278Z" fill="#E2E8F0"/>
+  <path d="M82 300C210 252 279 279 374 233C471 185 551 183 665 219C779 256 850 217 945 181C1039 146 1090 163 1120 175V316H82V300Z" fill="#CCFBF1"/>
+  <rect x="92" y="82" width="122" height="34" rx="6" fill="#0F766E"/>
+  <text x="153" y="104" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">DX ANALYTICS</text>
+  <text x="92" y="160" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">Bharat Herald</text>
+  <text x="92" y="214" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">Digital Transformation Study</text>
+  <text x="92" y="258" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="500" fill="#475569">SQL cleaning · Japanese report · Python automation · Consulting view</text>
+  <g transform="translate(834 86)">
+    <rect x="0" y="0" width="250" height="162" rx="12" fill="#FFFFFF" stroke="#94A3B8"/>
+    <rect x="24" y="28" width="86" height="16" rx="4" fill="#0F766E"/>
+    <rect x="24" y="60" width="178" height="14" rx="4" fill="#CBD5E1"/>
+    <rect x="24" y="90" width="148" height="14" rx="4" fill="#CBD5E1"/>
+    <rect x="24" y="120" width="200" height="14" rx="4" fill="#CBD5E1"/>
+    <circle cx="208" cy="37" r="16" fill="#C2410C"/>
+  </g>
+  <text x="1090" y="296" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#334155">Improved by Seven</text>
+</svg>
