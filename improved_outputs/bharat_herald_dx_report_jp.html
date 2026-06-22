@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bharat Herald DX改善分析レポート</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #637083;
+      --line: #d9dee8;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --accent: #0f766e;
+      --accent-2: #c2410c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Meiryo", "Noto Sans JP", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    header {
+      background: #102033;
+      color: white;
+      padding: 42px 56px 36px;
+    }
+    header p { max-width: 920px; color: #d6dee9; margin: 10px 0 0; }
+    main { max-width: 1120px; margin: 0 auto; padding: 28px 24px 56px; }
+    section { margin: 28px 0; }
+    h1 { font-size: 30px; margin: 0; letter-spacing: 0; }
+    h2 { font-size: 21px; margin: 0 0 14px; }
+    h3 { font-size: 16px; margin: 18px 0 8px; }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .kpi, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .kpi .label { color: var(--muted); font-size: 13px; }
+    .kpi .value { font-size: 23px; font-weight: 700; margin-top: 6px; }
+    .insights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    ul { padding-left: 20px; margin: 8px 0 0; }
+    li { margin: 6px 0; }
+    table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--line); }
+    th, td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: left; font-size: 13px; }
+    th { background: #edf2f7; font-weight: 700; }
+    .chart { width: 100%; max-width: 920px; display: block; margin: 10px 0 18px; }
+    .chart-title { font-size: 17px; font-weight: 700; fill: var(--ink); }
+    .axis-label, .value-label, .tick { font-size: 12px; fill: var(--muted); }
+    .bar { fill: var(--accent); }
+    .line { fill: none; stroke: var(--accent-2); stroke-width: 3; }
+    .dot { fill: var(--accent-2); }
+    .grid { stroke: var(--line); stroke-width: 1; }
+    .note { color: var(--muted); font-size: 13px; }
+    footer { color: var(--muted); font-size: 12px; margin-top: 28px; }
+    @media (max-width: 760px) {
+      header { padding: 30px 22px; }
+      .kpis, .insights { grid-template-columns: 1fr; }
+      main { padding: 20px 14px 42px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bharat Herald DX改善分析レポート</h1>
+    <p>SQLでデータ品質・表記ゆれ・通貨・日付を再整備し、印刷事業の縮小リスクとデジタル移行の優先都市を再評価した。</p>
+  </header>
+  <main>
+    <section class="kpis">
+      <div class="kpi"><div class="label">2024年ネット部数</div><div class="value">29,597,065</div></div>
+      <div class="kpi"><div class="label">2024年平均印刷効率</div><div class="value">94.53%</div></div>
+      <div class="kpi"><div class="label">2024年広告収入</div><div class="value">3.40億INR</div></div>
+      <div class="kpi"><div class="label">2024年DX準備度</div><div class="value">68.34</div></div>
+      <div class="kpi"><div class="label">Pilot平均エンゲージメント</div><div class="value">54.58%</div></div>
+      <div class="kpi"><div class="label">平均アクセス単価</div><div class="value">31INR</div></div>
+    </section>
+
+    <section class="insights">
+      <div class="panel">
+        <h2>結論</h2>
+        <ul>
+          <li>DX優先度が最も高い都市は <strong>Kanpur</strong>。準備度は高い一方、Pilot反応との差が大きい。</li>
+          <li>最大の月次部数落ち込みは <strong>Varanasi</strong> の 2021-01-01、変化量は -59,807 部。</li>
+          <li>広告収入はカテゴリ集中を持つ年があり、紙面依存の回復だけではDX投資原資が不安定になる。</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>改善後の分析観点</h2>
+        <ul>
+          <li>通貨をINRへ統一し、広告収入を横比較可能にした。</li>
+          <li>印刷効率、返品率、月次変化率、Pilotアクセス単価を追加した。</li>
+          <li>DX準備度、Pilot低反応、印刷縮小、効率低下を統合し、優先度スコアを作成した。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>データ品質チェック</h2>
+      <table><thead><tr><th>対象テーブル</th><th>行数</th><th>異常フラグ数</th></tr></thead><tbody><tr><td>print_sales</td><td>720</td><td>66</td></tr><tr><td>ad_revenue</td><td>720</td><td>67</td></tr><tr><td>city_readiness</td><td>240</td><td>0</td></tr><tr><td>digital_pilot</td><td>48</td><td>0</td></tr></tbody></table>
+      <p class="note">異常フラグは負値、範囲外、論理不整合、未知通貨などを検出する。</p>
+    </section>
+
+    <section class="panel">
+      <h2>印刷事業トレンド</h2>
+      
+    <svg class="chart" viewBox="0 0 860 280" role="img" aria-label="ネット部数の年次推移">
+      <text x="0" y="22" class="chart-title">ネット部数の年次推移</text>
+      <line x1="54" y1="234" x2="840" y2="234" class="grid"></line>
+      <line x1="54" y1="44" x2="54" y2="234" class="grid"></line>
+      <text x="4" y="52" class="tick">39,354,161</text>
+      <text x="4" y="234" class="tick">1,292,580</text>
+      <path d="M54.0,234.0 L185.0,44.0 L316.0,56.0 L447.0,65.5 L578.0,73.1 L709.0,82.9 L840.0,92.7" class="line"></path>
+      <circle cx="54.0" cy="234.0" r="3.5" class="dot"></circle><circle cx="185.0" cy="44.0" r="3.5" class="dot"></circle><circle cx="316.0" cy="56.0" r="3.5" class="dot"></circle><circle cx="447.0" cy="65.5" r="3.5" class="dot"></circle><circle cx="578.0" cy="73.1" r="3.5" class="dot"></circle><circle cx="709.0" cy="82.9" r="3.5" class="dot"></circle><circle cx="840.0" cy="92.7" r="3.5" class="dot"></circle>
+      <text x="54.0" y="262" class="tick" text-anchor="middle">20</text><text x="185.0" y="262" class="tick" text-anchor="middle">2019</text><text x="316.0" y="262" class="tick" text-anchor="middle">2020</text><text x="447.0" y="262" class="tick" text-anchor="middle">2021</text><text x="578.0" y="262" class="tick" text-anchor="middle">2022</text><text x="709.0" y="262" class="tick" text-anchor="middle">2023</text><text x="840.0" y="262" class="tick" text-anchor="middle">2024</text>
+    </svg>
+    
+      <h3>月次落ち込み上位</h3>
+      <table><thead><tr><th>都市</th><th>月</th><th>前月差</th><th>前月比%</th></tr></thead><tbody><tr><td>Varanasi</td><td>2021-01-01</td><td>-59807</td><td>-13.54</td></tr><tr><td>Varanasi</td><td>2019-11-01</td><td>-55649</td><td>-11.42</td></tr><tr><td>Jaipur</td><td>2020-01-01</td><td>-51858</td><td>-10.97</td></tr><tr><td>Varanasi</td><td>2020-10-01</td><td>-49252</td><td>-10.86</td></tr><tr><td>Varanasi</td><td>2024-01-01</td><td>-46975</td><td>-12.58</td></tr><tr><td>Jaipur</td><td>2021-05-01</td><td>-46547</td><td>-10.61</td></tr><tr><td>Mumbai</td><td>2021-01-01</td><td>-43257</td><td>-11.16</td></tr><tr><td>Jaipur</td><td>2020-07-01</td><td>-42968</td><td>-9.17</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2>広告収入と集中リスク</h2>
+      <svg class="chart" viewBox="0 0 860 338" role="img" aria-label="2024年 都市別広告収入"><text x="0" y="22" class="chart-title">2024年 都市別広告収入</text><text x="0" y="59" class="axis-label">Jaipur</text><rect x="150" y="42" width="600.0" height="20" rx="4" class="bar"></rect><text x="758.0" y="58" class="value-label">40,005,400.00 INR</text><text x="0" y="93" class="axis-label">Patna</text><rect x="150" y="76" width="596.7" height="20" rx="4" class="bar"></rect><text x="754.7" y="92" class="value-label">39,784,108.00 INR</text><text x="0" y="127" class="axis-label">Ranchi</text><rect x="150" y="110" width="596.1" height="20" rx="4" class="bar"></rect><text x="754.1" y="126" class="value-label">39,746,148.00 INR</text><text x="0" y="161" class="axis-label">Lucknow</text><rect x="150" y="144" width="570.2" height="20" rx="4" class="bar"></rect><text x="728.2" y="160" class="value-label">38,016,216.00 INR</text><text x="0" y="195" class="axis-label">Bhopal</text><rect x="150" y="178" width="557.9" height="20" rx="4" class="bar"></rect><text x="715.9" y="194" class="value-label">37,200,257.00 INR</text><text x="0" y="229" class="axis-label">Ahmedabad</text><rect x="150" y="212" width="527.6" height="20" rx="4" class="bar"></rect><text x="685.6" y="228" class="value-label">35,181,141.00 INR</text><text x="0" y="263" class="axis-label">Kanpur</text><rect x="150" y="246" width="454.0" height="20" rx="4" class="bar"></rect><text x="612.0" y="262" class="value-label">30,271,602.00 INR</text><text x="0" y="297" class="axis-label">Mumbai</text><rect x="150" y="280" width="433.9" height="20" rx="4" class="bar"></rect><text x="591.9" y="296" class="value-label">28,929,274.00 INR</text></svg>
+      <h3>年別トップ広告カテゴリ</h3>
+      <table><thead><tr><th>年</th><th>最大カテゴリ</th><th>構成比%</th></tr></thead><tbody><tr><td>2019</td><td>Government</td><td>35.35</td></tr><tr><td>2020</td><td>Government</td><td>30.61</td></tr><tr><td>2021</td><td>Real Estate</td><td>34.5</td></tr><tr><td>2022</td><td>Government</td><td>30.95</td></tr><tr><td>2023</td><td>Real Estate</td><td>31.48</td></tr><tr><td>2024</td><td>Real Estate</td><td>32.35</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2>DX優先都市ランキング</h2>
+      <svg class="chart" viewBox="0 0 860 406" role="img" aria-label="DX優先度スコア"><text x="0" y="22" class="chart-title">DX優先度スコア</text><text x="0" y="59" class="axis-label">Kanpur</text><rect x="150" y="42" width="600.0" height="20" rx="4" class="bar"></rect><text x="758.0" y="58" class="value-label">48.57</text><text x="0" y="93" class="axis-label">Ranchi</text><rect x="150" y="76" width="582.2" height="20" rx="4" class="bar"></rect><text x="740.2" y="92" class="value-label">47.13</text><text x="0" y="127" class="axis-label">Varanasi</text><rect x="150" y="110" width="579.0" height="20" rx="4" class="bar"></rect><text x="737.0" y="126" class="value-label">46.87</text><text x="0" y="161" class="axis-label">Bhopal</text><rect x="150" y="144" width="564.5" height="20" rx="4" class="bar"></rect><text x="722.5" y="160" class="value-label">45.7</text><text x="0" y="195" class="axis-label">Patna</text><rect x="150" y="178" width="560.1" height="20" rx="4" class="bar"></rect><text x="718.1" y="194" class="value-label">45.34</text><text x="0" y="229" class="axis-label">Lucknow</text><rect x="150" y="212" width="551.3" height="20" rx="4" class="bar"></rect><text x="709.3" y="228" class="value-label">44.63</text><text x="0" y="263" class="axis-label">Mumbai</text><rect x="150" y="246" width="550.7" height="20" rx="4" class="bar"></rect><text x="708.7" y="262" class="value-label">44.58</text><text x="0" y="297" class="axis-label">Ahmedabad</text><rect x="150" y="280" width="545.0" height="20" rx="4" class="bar"></rect><text x="703.0" y="296" class="value-label">44.12</text><text x="0" y="331" class="axis-label">Jaipur</text><rect x="150" y="314" width="486.3" height="20" rx="4" class="bar"></rect><text x="644.3" y="330" class="value-label">39.37</text><text x="0" y="365" class="axis-label">Delhi</text><rect x="150" y="348" width="461.0" height="20" rx="4" class="bar"></rect><text x="619.0" y="364" class="value-label">37.32</text></svg>
+      <table><thead><tr><th>都市</th><th>Tier</th><th>準備度</th><th>Pilot反応%</th><th>部数変化%</th><th>印刷効率%</th><th>DX優先度</th></tr></thead><tbody><tr><td>Kanpur</td><td>Tier 2</td><td>74.92</td><td>49.05</td><td>-25.21</td><td>94.53</td><td>48.57</td></tr><tr><td>Ranchi</td><td>Tier 3</td><td>68.81</td><td>38.7</td><td>-17.69</td><td>95.06</td><td>47.13</td></tr><tr><td>Varanasi</td><td>Tier 2</td><td>74.8</td><td>55.77</td><td>-25.45</td><td>94.64</td><td>46.87</td></tr><tr><td>Bhopal</td><td>Tier 2</td><td>72.69</td><td>57.85</td><td>-26.0</td><td>94.12</td><td>45.7</td></tr><tr><td>Patna</td><td>Tier 2</td><td>70.23</td><td>54.59</td><td>-25.41</td><td>94.55</td><td>45.34</td></tr><tr><td>Lucknow</td><td>Tier 2</td><td>72.74</td><td>60.84</td><td>-24.52</td><td>94.39</td><td>44.63</td></tr><tr><td>Mumbai</td><td>Tier 1</td><td>67.75</td><td>53.18</td><td>-24.74</td><td>94.53</td><td>44.58</td></tr><tr><td>Ahmedabad</td><td>Tier 1</td><td>72.55</td><td>61.95</td><td>-24.22</td><td>95.05</td><td>44.12</td></tr><tr><td>Jaipur</td><td>Tier 2</td><td>53.61</td><td>52.39</td><td>-26.13</td><td>94.67</td><td>39.37</td></tr><tr><td>Delhi</td><td>Tier 1</td><td>55.26</td><td>63.17</td><td>-25.31</td><td>93.65</td><td>37.32</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2>提案</h2>
+      <ul>
+        <li>高準備度・低Pilot反応の都市では、単純なアプリ展開よりWhatsApp/地域広告主連携から再設計する。</li>
+        <li>印刷効率が低い都市は、部数予測と返品率モニタリングを月次KPI化し、紙面コストをDX投資へ振り替える。</li>
+        <li>広告カテゴリ集中が高い年は、Government/FMCG/Real Estateの偏りを見ながらデジタル広告商品を分散投入する。</li>
+      </ul>
+    </section>
+
+    <footer>
+      Generated by scripts/generate_japanese_report.py on 2026-06-22 17:59.
+    </footer>
+  </main>
+</body>
+</html>
